@@ -5,9 +5,15 @@
   border: 1px solid #ffffff;
   box-shadow: 0 4px 4px 4px rgba(0,0,0,.1);
   margin-top: 3px;
-  max-height: 200px;
   padding-left: 4px;
-  overflow-y: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.show-options {
+    max-height: 200px;
+  }
+
     &-item{
       display: flex;
       align-items: center;

@@ -6,7 +6,7 @@ import {SelectOptionsProps} from "../../../types/SelectType.ts";
 
 
 const SelectOptions = (props : SelectOptionsProps) => {
-    const {options, setSelected , chips} = props;
+    const {options, setSelected , chips, showOptions} = props;
 
     const renderOptions = () => {
 
@@ -14,7 +14,7 @@ const SelectOptions = (props : SelectOptionsProps) => {
             <>
                 {
 
-                        options.map((option, _) => {
+                        options?.map((option, _) => {
                             const isSelected = chips?.some((chip) => chip.id === option?.id);
                         return (
                             <div
@@ -43,7 +43,10 @@ const SelectOptions = (props : SelectOptionsProps) => {
     }
 
     return (
-        <div className="select-options">
+        <div className={classNames("select-options", {
+            "show-options": showOptions
+        })}
+        >
             {renderOptions()}
         </div>
     );

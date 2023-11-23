@@ -12,6 +12,21 @@
   justify-content: center;
   padding-top: 4px;
 
+  &.loading{
+    cursor: not-allowed;
+    background : #f5f5f5;
+    &:first-child:hover {
+        border: 1px solid #ccc;
+    }
+  }
+
+  &.error{
+    border: 1px solid red;
+    &:first-child:hover {
+        border: 1px solid red;
+    }
+  }
+
   &:first-child:hover {
     border: 1px solid lighten(blue, 10%);
   }
@@ -20,6 +35,10 @@
     display: flex;
     flex-wrap: wrap;
     flex: 1;
+    &.loading{
+      cursor: not-allowed;
+    }
+
     &-search{
       display: flex;
       align-items: center;

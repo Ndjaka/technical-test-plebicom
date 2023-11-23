@@ -1,6 +1,6 @@
 export interface ChipItemProps {
     item: ItemProps;
-    removeItem: () => void;
+    removeItem: (id: number) => void;
 }
 export interface ItemProps {
     id : number;
@@ -11,4 +11,5 @@ export interface SelectOptionsProps {
     selected?: ItemProps;
     setSelected: (selected: ItemProps) => void;
     chips?: Array<ItemProps>;
+    showOptions?: boolean;
 }
