@@ -1,28 +1,49 @@
-import SelectItem from "./select-item/SelectItem.tsx";
-import {ChevronDown} from "react-feather";
 import "./select.scss";
-import {Fragment} from "react";
 import SelectOptions from "./select-options/SelectOptions.tsx";
+import ChipInput from "./chip-input/ChipInput.tsx";
+import {useState} from "react";
+import {ItemProps} from "../../types/SelectType.ts";
 
+const data = [
+    {id: 1, value: "a" },
+    {id: 2, value: "b", },
+    {id: 3, value: "c"},
+    {id: 4, value: "d"},
+    {id: 5, value: "e"},
+    {id: 6, value: "f"},
+    {id: 7, value: "g"},
+];
 const Select = () => {
+
+    const [chips, setChips] = useState<ItemProps[]>([]);
+
+    /**
+     * Update selected chips based on the provided option.
+     *
+     * @param {ItemProps} optionSelected - The option to be updated.
+     * @returns {void}
+     */
+    const updateSelectedChips = (optionSelected: ItemProps): void => {
+        setChips((prevChips) =>
+            prevChips.some((chip) => chip.id === optionSelected.id)
+                ? prevChips.filter((chip) => chip.id !== optionSelected.id)
+                : [...prevChips, optionSelected]
+        );
+    };
+
+
     return (
-        <Fragment>
         <div className={"select"}>
-            <div className="select-selector">
-               <SelectItem/>
-                <div className="select-selector-search">
-                    <input
-                        type="text"
-                        placeholder={"Please select"}
-                    />
-                </div>
-            </div>
-            <div className="select-icon">
-                <ChevronDown size={16}/>
-            </div>
+            <ChipInput
+                options={chips}
+                setSelected={updateSelectedChips}
+            />
+            <SelectOptions
+              chips={chips}
+              options={data}
+              setSelected={updateSelectedChips}
+           />
         </div>
-          <SelectOptions/>
-        </Fragment>
     );
 };
 
