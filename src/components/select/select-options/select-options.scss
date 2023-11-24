@@ -1,3 +1,8 @@
+:root{
+  --top: 1;
+  --bottom: 1;
+}
+
 .select-options{
   background: #ffffff;
   width: 100%;
@@ -9,7 +14,8 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
-
+  position: absolute;
+  z-index: 999;
   &.show-options {
     max-height: 200px;
   }

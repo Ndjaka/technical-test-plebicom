@@ -42,10 +42,16 @@ const SelectOptions = (props : SelectOptionsProps) => {
         )
     }
 
+    const styles = {
+        top: 'var(--top)',
+        bottom: 'var(--bottom)',
+    }
     return (
-        <div className={classNames("select-options", {
+        <div
+            className={classNames("select-options", {
             "show-options": showOptions
         })}
+            style={styles}
         >
             {renderOptions()}
         </div>

@@ -12,6 +12,7 @@ interface SelectProps {
     onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     loading?: boolean;
     error?: boolean;
+    selectValue?: ItemProps[];
 }
 
 const Select = (props : SelectProps) => {
@@ -23,8 +24,10 @@ const Select = (props : SelectProps) => {
         onInputChange,
         error,
         loading,
+        selectValue
     } = props;
-    const [chips, setChips] = useState<ItemProps[]>([]);
+
+    const [chips, setChips] = useState<ItemProps[]>(selectValue || []);
     const [showOptions, setShowOptions] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement>(null);
 
