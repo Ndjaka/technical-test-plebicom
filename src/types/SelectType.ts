@@ -14,4 +14,5 @@ export interface SelectOptionsProps {
     setSelected: (selected: ItemProps) => void;
     chips?: Array<ItemProps>;
     showOptions?: boolean;
+    onScroll?: () => void;
 }

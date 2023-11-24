@@ -13,6 +13,7 @@ interface SelectProps {
     loading?: boolean;
     error?: boolean;
     selectValue?: ItemProps[];
+    onPaginateOptions?: () => void;
 }
 
 const Select = (props : SelectProps) => {
@@ -23,12 +24,14 @@ const Select = (props : SelectProps) => {
         inputValue,
         error,
         loading,
-        selectValue
+        selectValue,
+        onPaginateOptions
     } = props;
     const [options, setOptions] = useState<ItemProps[]>([]);
     const [chips, setChips] = useState<ItemProps[]>(selectValue || []);
     const [showOptions, setShowOptions] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement>(null);
+    const optionsRef = useRef<HTMLDivElement>(null);
 
     const updateSelectedChips = (optionSelected: ItemProps): void => {
         setChips((prevChips) =>
@@ -72,6 +75,21 @@ const Select = (props : SelectProps) => {
         if (data?.length > 0)  setOptions(data);
     }, [data]);
 
+    const handleScroll = () => {
+        if (onPaginateOptions) {
+            const optionRefCurrent = optionsRef?.current;
+            if(
+                optionRefCurrent &&
+                ( optionRefCurrent?.scrollTop + optionRefCurrent?.clientHeight ) ===
+                optionRefCurrent?.scrollHeight
+            ){
+                onPaginateOptions();
+            }
+        }
+
+    }
+
+
     return (
         <div className={"select"} ref={selectRef}>
             <ChipInput
@@ -93,6 +111,8 @@ const Select = (props : SelectProps) => {
             />
             {showOptions && (
                 <SelectOptions
+                    onScroll={handleScroll}
+                    ref={optionsRef}
                     showOptions={showOptions}
                     chips={chips || []}
                     options={options}

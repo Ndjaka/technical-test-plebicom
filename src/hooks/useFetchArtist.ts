@@ -22,7 +22,7 @@ const useFetchArtists = (options: UseArtistsOptions) => {
                 const response = await ArtistsService.getArtists(options.page, options.perPage);
                 if (response.ok) {
                     const data: Artists = await response.json();
-                    setArtists(data.data);
+                    setArtists(prevState => [...data.data, ...prevState]);
                     setPagination(data.pagination);
                 } else {
                     setError(true);

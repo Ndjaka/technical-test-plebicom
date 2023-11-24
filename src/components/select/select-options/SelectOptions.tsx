@@ -2,60 +2,68 @@ import {Check} from "react-feather";
 import './select-options.scss';
 import classNames from "classnames";
 import {SelectOptionsProps} from "../../../types/SelectType.ts";
+import React from "react";
 
 
 
-const SelectOptions = (props : SelectOptionsProps) => {
-    const {options, setSelected , chips, showOptions} = props;
+const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
+    (props : SelectOptionsProps,ref) => {
+        const {options, setSelected , chips, showOptions , ...rest} = props;
 
-    const renderOptions = () => {
+        const renderOptions = () => {
 
-        return (
-            <>
-                {
+            return (
+                <>
+                    {
 
-                        options?.map((option, _) => {
+
+                        options?.map((option, i) => {
                             const isSelected = chips?.some((chip) => chip.id === option?.id);
-                        return (
-                            <div
-                                onClick={() => setSelected(option)}
-                                className={classNames("select-options-item", {
-                                    "selected": isSelected,
-                                })
-                                }
-                                key={option?.id}>
-                                <div className="select-options-item-content">
-                                    {option?.value}
+                            return (
+                                <div
+                                    onClick={() => setSelected(option)}
+                                    className={classNames("select-options-item", {
+                                        "selected": isSelected,
+                                    })
+                                    }
+                                    key={`${option.id}_${option.value}_${i}`}>
+                                    <div className="select-options-item-content">
+                                        {option?.value}
+                                    </div>
+                                    {
+                                        isSelected && ( <div className="select-options-item-icon">
+                                            <Check color={"blue"}  size={16}/>
+                                        </div>)
+                                    }
+
                                 </div>
-                                {
-                                    isSelected && ( <div className="select-options-item-icon">
-                                        <Check color={"blue"}  size={16}/>
-                                    </div>)
-                                }
+                            )
 
-                            </div>
-                        )
+                        })
+                    }
+                </>
+            )
+        }
 
-                    })
-                }
-            </>
-        )
+        const styles = {
+            top: 'var(--top)',
+            bottom: 'var(--bottom)',
+        }
+        return (
+            <div
+                ref={ref}
+                className={classNames("select-options", {
+                    "show-options": showOptions
+                })}
+                style={styles}
+                {...rest}
+            >
+                {renderOptions()}
+            </div>
+        );
     }
+);
 
-    const styles = {
-        top: 'var(--top)',
-        bottom: 'var(--bottom)',
-    }
-    return (
-        <div
-            className={classNames("select-options", {
-            "show-options": showOptions
-        })}
-            style={styles}
-        >
-            {renderOptions()}
-        </div>
-    );
-};
+
 
 export default SelectOptions;
