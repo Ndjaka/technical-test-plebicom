@@ -4,7 +4,7 @@ import useFetchArtist from "./hooks/useFetchArtist.ts";
 
 function App() {
 
-  const {error , artists,isLoading} = useFetchArtist({  page: 1, perPage: 8});
+  const {error , artists,isLoading} = useFetchArtist({  page: 1, perPage: 20});
 
   return (
       <div

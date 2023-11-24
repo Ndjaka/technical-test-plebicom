@@ -21,12 +21,11 @@ const Select = (props : SelectProps) => {
         onSelectChange,
         placeholder,
         inputValue,
-        onInputChange,
         error,
         loading,
         selectValue
     } = props;
-
+    const [options, setOptions] = useState<ItemProps[]>([]);
     const [chips, setChips] = useState<ItemProps[]>(selectValue || []);
     const [showOptions, setShowOptions] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement>(null);
@@ -37,6 +36,18 @@ const Select = (props : SelectProps) => {
                 ? prevChips.filter((chip) => chip.id !== optionSelected.id)
                 : [...prevChips, optionSelected]
         );
+    };
+
+    const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
+        setOptions((prevOptions) => {
+            if (e.target.value === "") {
+                return data;
+            }else{
+                return prevOptions.filter((option) =>
+                    option.value.toLowerCase().includes(e.target.value.toLowerCase())
+                );
+            }
+        });
     };
 
     useEffect(() => {
@@ -57,6 +68,10 @@ const Select = (props : SelectProps) => {
         };
     }, [selectRef]);
 
+    useEffect(() => {
+        if (data?.length > 0)  setOptions(data);
+    }, [data]);
+
     return (
         <div className={"select"} ref={selectRef}>
             <ChipInput
@@ -74,13 +89,13 @@ const Select = (props : SelectProps) => {
                 onClear={() => setChips([])}
                 placeholder={placeholder}
                 inputValue={inputValue}
-                onChange={onInputChange}
+                onChange={handleFilter}
             />
             {showOptions && (
                 <SelectOptions
                     showOptions={showOptions}
                     chips={chips || []}
-                    options={data || []}
+                    options={options}
                     setSelected={updateSelectedChips}
                 />
             )}

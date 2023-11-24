@@ -12,7 +12,8 @@
   margin-top: 3px;
   padding-left: 4px;
   max-height: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   transition: max-height 0.3s ease-in-out;
   position: absolute;
   z-index: 999;
