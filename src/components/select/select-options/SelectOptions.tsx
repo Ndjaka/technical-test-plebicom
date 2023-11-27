@@ -21,6 +21,7 @@ const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
                             const isSelected = chips?.some((chip) => chip.id === option?.id);
                             return (
                                 <div
+                                    data-testid="select-options-item"
                                     onClick={() => setSelected(option)}
                                     className={classNames("select-options-item", {
                                         "selected": isSelected,
@@ -51,6 +52,7 @@ const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
         }
         return (
             <div
+                data-testid="select-options"
                 ref={ref}
                 className={classNames("select-options", {
                     "show-options": showOptions

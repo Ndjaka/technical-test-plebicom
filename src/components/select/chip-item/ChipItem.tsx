@@ -10,6 +10,7 @@ const ChipItem = (props : ChipItemProps) => {
              <div className="chip-item">
                 <span className="chip-item-content">{item.value}</span>
                 <span
+                    data-testid={`chip-item`}
                     onClick={() => removeItem(item.id)}
                     className="chip-item-remove">
                     <X size={16}/>

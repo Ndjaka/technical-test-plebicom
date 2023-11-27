@@ -31,7 +31,7 @@ const ChipInput = (props : ChipInputProps) => {
 
     return (
         <div
-
+            data-testid={"chip-input"}
             className={classNames("chip-input",
             {
                  "loading": loading,
@@ -53,6 +53,7 @@ const ChipInput = (props : ChipInputProps) => {
 
                 <div className="chip-input-selector-search">
                     <input
+                        data-testid={"chip-input-selector-search"}
                         onClick={onClick}
                         disabled={loading}
                         value={inputValue}
@@ -70,7 +71,7 @@ const ChipInput = (props : ChipInputProps) => {
                     {
                         loading ? <ReactLoading type={"spin"} color={"#ccc"} height={16} width={16}/> : <div>
                                 {
-                                    options.length === 0 ? <ChevronDown  size={16}/> : <XCircle onClick={onClear} size={16}/>
+                                    options.length === 0 ? <ChevronDown  size={16}/> : <XCircle data-testid={"clear-all-chips"} onClick={onClear} size={16}/>
                                 }
                             </div>
                     }

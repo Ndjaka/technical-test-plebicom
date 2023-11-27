@@ -91,7 +91,9 @@ const Select = (props : SelectProps) => {
 
 
     return (
-        <div className={"select"} ref={selectRef}>
+        <div data-testid={"select"}
+             className={"select"}
+             ref={selectRef}>
             <ChipInput
                 onClick={() =>
                     {
