@@ -2,13 +2,43 @@ import {Check} from "react-feather";
 import './select-options.scss';
 import classNames from "classnames";
 import {SelectOptionsProps} from "../../../types/SelectType.ts";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 
 
 const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
     (props : SelectOptionsProps,ref) => {
         const {options, setSelected , chips, showOptions , ...rest} = props;
+
+        const [position, setPosition] = useState<"top"| "bottom">("bottom");
+
+        const updateOptionsPosition = () => {
+            const rect = ref?.current?.getBoundingClientRect();
+
+            if (rect) {
+                const windowHeight = window.innerHeight;
+
+                if (rect.top < windowHeight / 3) {
+                    setPosition("top");
+                } else if (rect.bottom > windowHeight * 2 / 3) {
+                    setPosition("bottom");
+                }
+            }
+        };
+
+        useEffect(() => {
+            updateOptionsPosition();
+            window.addEventListener("scroll", updateOptionsPosition);
+
+            return () => {
+                window.removeEventListener("scroll", updateOptionsPosition);
+            };
+        }, [ref]);
+
+        const styles = {
+            top: position === "top" ? "1" : "var(--top)",
+            bottom: position === "bottom" ? "0" : "var(--bottom)",
+        };
 
         const renderOptions = () => {
 
@@ -46,10 +76,6 @@ const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
             )
         }
 
-        const styles = {
-            top: 'var(--top)',
-            bottom: 'var(--bottom)',
-        }
         return (
             <div
                 data-testid="select-options"
@@ -57,7 +83,7 @@ const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
                 className={classNames("select-options", {
                     "show-options": showOptions
                 })}
-                style={styles}
+                style={styles as React.CSSProperties}
                 {...rest}
             >
                 {renderOptions()}
