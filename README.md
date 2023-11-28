@@ -31,8 +31,8 @@ Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé avant de suivre ce
    
 ## Scripts disponibles
 
-- npm test : Exécute les tests avec Vitest.
-- npm dev : Démarre l'environnement de développement avec Vite.
+- npm run test : Exécute les tests avec Vitest.
+- npm run dev : Démarre l'environnement de développement avec Vite.
 - npm run coverage : Exécute les tests avec la couverture de code.
 - npm run build : Compile le code avec TypeScript et construit le projet avec Vite.
 - npm run lint : Exécute ESLint pour le linting.
