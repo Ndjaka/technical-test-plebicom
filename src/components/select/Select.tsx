@@ -1,4 +1,4 @@
-import{ useState, useEffect, useRef, ChangeEvent } from "react";
+import {useState, useEffect, useRef, ChangeEvent, useMemo, useCallback} from "react";
 import "./select.scss";
 import SelectOptions from "./select-options/SelectOptions.tsx";
 import ChipInput from "./chip-input/ChipInput.tsx";
@@ -33,15 +33,17 @@ const Select = (props : SelectProps) => {
     const selectRef = useRef<HTMLDivElement>(null);
     const optionsRef = useRef<HTMLDivElement>(null);
 
-    const updateSelectedChips = (optionSelected: ItemProps): void => {
+    const updateSelectedChips = useCallback((optionSelected: ItemProps): void => {
         setChips((prevChips) =>
             prevChips.some((chip) => chip.id === optionSelected.id)
                 ? prevChips.filter((chip) => chip.id !== optionSelected.id)
                 : [...prevChips, optionSelected]
         );
-    };
+    }, []);
 
-    const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleFilter = useMemo(
+        () => {
+        return (e: ChangeEvent<HTMLInputElement>) => {
         setOptions((prevOptions) => {
             if (e.target.value === "") {
                 return data;
@@ -51,7 +53,7 @@ const Select = (props : SelectProps) => {
                 );
             }
         });
-    };
+    }}, []);
 
     useEffect(() => {
         onSelectChange(chips);

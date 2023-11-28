@@ -2,7 +2,7 @@ import {Check} from "react-feather";
 import './select-options.scss';
 import classNames from "classnames";
 import {SelectOptionsProps} from "../../../types/SelectType.ts";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState,memo} from "react";
 
 
 
@@ -13,7 +13,9 @@ const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
         const [position, setPosition] = useState<"top"| "bottom">("bottom");
 
         const updateOptionsPosition = () => {
-            const rect = ref?.current?.getBoundingClientRect();
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const rect = (ref as never)?.current?.getBoundingClientRect();
 
             if (rect) {
                 const windowHeight = window.innerHeight;
@@ -94,4 +96,4 @@ const SelectOptions = React.forwardRef<HTMLDivElement,SelectOptionsProps>(
 
 
 
-export default SelectOptions;
+export default memo(SelectOptions);
