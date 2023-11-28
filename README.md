@@ -26,7 +26,7 @@ Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé avant de suivre ce
 3. **Lancer le projet :**
 
    ```bash 
-   npm dev
+   npm run dev
    ```
    
 ## Scripts disponibles
